@@ -40,11 +40,11 @@ const auth = (...requiredRoles) => {
     }
 
     // 04 Check already deleted
-    const isDeleted = user?.isDeleted;
+    // const isDeleted = user?.isDeleted;
 
-    if (isDeleted) {
-      throw new AppError(httpStatus.FORBIDDEN, 'This user is deleted !');
-    }
+    // if (isDeleted) {
+    //   throw new AppError(httpStatus.FORBIDDEN, 'This user is deleted !');
+    // }
 
     // 05 Check password changed
     if (
@@ -53,13 +53,16 @@ const auth = (...requiredRoles) => {
     ) {
       throw new AppError(
         httpStatus.UNAUTHORIZED,
-        'You are not authorized !',
+        'You recently changed password! Please login again!',
       );
     }
 
     // 06 Check role
     if (requiredRoles.length > 0 && !requiredRoles.includes(role)) {
-      throw new AppError(httpStatus.UNAUTHORIZED, 'You are not allowed!');
+      throw new AppError(
+        httpStatus.UNAUTHORIZED,
+        'You have no access for this route!',
+      );
     }
     // 07 Set decoded data as user in request and grant access
     req.user = decodedData;

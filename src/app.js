@@ -1,22 +1,23 @@
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import httpStatus from 'http-status';
-
-import { AuthRoutes } from './routes/authRote.js';
 
 import notFoundRouteHandler from './middlewares/notFoundRouteHandler.js';
 import globalErrorHandler from './middlewares/globalErrorHandler.js';
-import { UserRoutes } from './routes/userRoute.js';
+import { UserRoutes } from './routes/UserRoute.js';
+import { AuthRoutes } from './routes/AuthRoute.js';
 
 export const app = express();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // MIDDLEWARES
-app.use(morgan('dev'));
+app.use(express.static(path.join(__dirname, '../public')));
 app.use(express.json({ limit: '10kb' }));
 app.use(cors());
-
-// DEVELOPMENT LOGGING
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
@@ -35,14 +36,8 @@ app.get('/', (req, res) => {
 });
 
 // ROUTES
-app.use('/api/v1/auth', AuthRoutes);
-app.use('/api/v1/users', UserRoutes);
-
-// app.use('/api/v1/users', userRouter);
-// app.use('/api/v1/carts', cartRouter);
-// app.use('/api/v1/orders', orderRouter);
-// app.use('/api/v1/products', productRouter);
-// app.use('/api/v1/stripe', stripeRouter);
+app.use('/api/v2/auth', AuthRoutes);
+app.use('/api/v2/users', UserRoutes);
 
 // NOT FOUND ROUTE HANDLER
 app.use(notFoundRouteHandler);
