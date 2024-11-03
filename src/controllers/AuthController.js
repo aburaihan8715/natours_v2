@@ -6,8 +6,8 @@ import httpStatus from 'http-status';
 
 // REGISTER OR CREATE USER
 const register = catchAsync(async (req, res, next) => {
-  const { username, email, password } = req.body;
-  const registerData = { username, email, password };
+  const { username, email, password, passwordConfirm } = req.body;
+  const registerData = { username, email, password, passwordConfirm };
   const newUser = await AuthService.registerIntoDB(registerData);
 
   sendResponse(res, {

@@ -34,13 +34,13 @@ const loginFromDB = async (payload) => {
   }
 
   // 02. checking if the user is already deleted
-  const isDeleted = user?.isDeleted;
-  if (isDeleted) {
-    throw new AppError(httpStatus.FORBIDDEN, 'This user is deleted !');
-  }
+  // const isDeleted = user?.isDeleted;
+  // if (isDeleted) {
+  //   throw new AppError(httpStatus.FORBIDDEN, 'This user is deleted !');
+  // }
 
   // 03. checking if the password is correct
-  const isPasswordCorrect = await User.isPasswordCorrect(
+  const isPasswordCorrect = await user.isPasswordCorrect(
     payload?.password,
     user?.password,
   );

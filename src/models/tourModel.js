@@ -18,7 +18,9 @@ const tourSchema = new mongoose.Schema(
       ],
     },
 
-    slug: String,
+    slug: {
+      type: String,
+    },
 
     duration: {
       type: Number,
@@ -61,7 +63,6 @@ const tourSchema = new mongoose.Schema(
       type: Number,
       validate: {
         validator: function (val) {
-          // it only works the time of create new doc but not the time update doc
           return val < this.price;
         },
         message: 'Discount price ({VALUE}) should be below regular price',
@@ -81,18 +82,17 @@ const tourSchema = new mongoose.Schema(
 
     imageCover: {
       type: String,
-      required: [true, 'A tour must have a cover image'],
+      default: '',
     },
 
-    images: [String],
-
-    createdAt: {
-      type: Date,
-      default: Date.now(),
-      select: false,
+    images: {
+      type: [String],
+      default: [],
     },
 
-    startDates: [Date],
+    startDates: {
+      type: [Date],
+    },
 
     secretTour: {
       type: Boolean,
@@ -106,22 +106,38 @@ const tourSchema = new mongoose.Schema(
         default: 'Point',
         enum: ['Point'],
       },
-      coordinates: [Number],
-      address: String,
-      description: String,
+      coordinates: {
+        type: [Number],
+      },
+      address: {
+        type: String,
+      },
+      description: {
+        type: String,
+      },
     },
 
     locations: [
       {
         type: {
-          type: String,
+          type: {
+            type: String,
+          },
           default: 'Point',
           enum: ['Point'],
         },
-        coordinates: [Number],
-        address: String,
-        description: String,
-        day: Number,
+        coordinates: {
+          type: [Number],
+        },
+        address: {
+          type: String,
+        },
+        description: {
+          type: String,
+        },
+        day: {
+          type: Number,
+        },
       },
     ],
 
@@ -137,6 +153,7 @@ const tourSchema = new mongoose.Schema(
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
   },
+  { timestamps: true },
 );
 
 // INDEXING SOME FIELDS
