@@ -1,5 +1,5 @@
 import AppError from '../errors/AppError.js';
-import { User } from '../models/userModel.js';
+import { User } from '../models/UserModel.js';
 import httpStatus from 'http-status';
 import { createToken } from '../utils/createToken.js';
 import config from '../config/env.config.js';

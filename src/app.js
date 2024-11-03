@@ -9,6 +9,7 @@ import notFoundRouteHandler from './middlewares/notFoundRouteHandler.js';
 import globalErrorHandler from './middlewares/globalErrorHandler.js';
 import { UserRoutes } from './routes/UserRoute.js';
 import { AuthRoutes } from './routes/AuthRoute.js';
+import { TourRoutes } from './routes/TourRoute.js';
 
 export const app = express();
 const __filename = fileURLToPath(import.meta.url);
@@ -38,6 +39,7 @@ app.get('/', (req, res) => {
 // ROUTES
 app.use('/api/v2/auth', AuthRoutes);
 app.use('/api/v2/users', UserRoutes);
+app.use('/api/v2/tours', TourRoutes);
 
 // NOT FOUND ROUTE HANDLER
 app.use(notFoundRouteHandler);

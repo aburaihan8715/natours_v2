@@ -120,12 +120,11 @@ const tourSchema = new mongoose.Schema(
     locations: [
       {
         type: {
-          type: {
-            type: String,
-          },
+          type: String,
           default: 'Point',
           enum: ['Point'],
         },
+
         coordinates: {
           type: [Number],
         },
@@ -152,8 +151,8 @@ const tourSchema = new mongoose.Schema(
   {
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
+    timestamps: true,
   },
-  { timestamps: true },
 );
 
 // INDEXING SOME FIELDS
